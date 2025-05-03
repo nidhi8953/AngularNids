@@ -1,0 +1,16 @@
+node {
+  // Use the NodeJS installation configured in Jenkins Global Tools
+    def nodeJS = tool name: 'NodeJS 23.x', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+    
+    // Add NodeJS to PATH
+    env.PATH = "${nodeJS}/bin:${env.PATH}"
+    
+    stage('Build') {
+        sh 'node --version'
+        sh 'npm --version'
+        
+        // Run npm commands
+        sh 'npm install'
+        sh 'npm run build'
+    }
+}
