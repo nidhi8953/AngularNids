@@ -19,7 +19,7 @@ node {
       
     }
     stage("Allure REport") {
-        echo "Allur REport"
+        echo "Allur REport !!"
         allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]   
     }
     stage('Push image') {
