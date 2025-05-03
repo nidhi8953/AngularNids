@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        nodejs 'NodeJS1 23.11.0' // Matches the name you configured
+        nodejs 'NodeJS 23.11.0' // Matches the name you configured
     }
     stages {
         stage('Build') {
