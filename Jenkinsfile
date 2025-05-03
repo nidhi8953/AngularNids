@@ -20,9 +20,10 @@ node {
     }
     stage('Run Unit Tests') {
           
-                sh 'npm test -- --watch=false --code-coverage'
+                //sh 'npm test -- --watch=false --code-coverage'
                 // Alternative if using ng directly:
-                // sh 'ng test --watch=false --code-coverage'
+               //sh 'ng test --watch=false --code-coverage'
+               sh 'ng test -- --watch=false --code-coverage --browsers=ChromeHeadless'
           
             
     }
