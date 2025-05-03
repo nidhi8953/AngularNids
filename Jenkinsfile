@@ -1,7 +1,7 @@
 node {
     def app
    // Use the NodeJS installation configured in Jenkins Global Tools
-    def nodeJS = tool name: 'NodeJS 18.x', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+    def nodeJS = tool name: 'NodeJS 23.x', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
     
     // Add NodeJS to PATH
     env.PATH = "${nodeJS}/bin:${env.PATH}"
