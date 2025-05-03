@@ -7,6 +7,7 @@ module.exports = function (config) {
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-allure-reporter')
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
@@ -44,7 +45,7 @@ module.exports = function (config) {
         ]
       }
     },
-      allureReport: {
+    allureReport: {
       reportDir: 'allure-results',
       useBrowserName: false
     }
