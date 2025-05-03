@@ -31,7 +31,7 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml','allure'],
     browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
@@ -44,6 +44,10 @@ module.exports = function (config) {
         ]
       }
     },
+      allureReport: {
+      reportDir: 'allure-results',
+      useBrowserName: false
+    }
     restartOnFileChange: true
   });
 };
