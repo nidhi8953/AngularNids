@@ -1,7 +1,6 @@
 node {
 
-    // Clean workspace
-    deleteDir()
+   
     def app
    // Use the NodeJS installation configured in Jenkins Global Tools
     def nodeJS = tool name: 'NodeJS 23.x', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
