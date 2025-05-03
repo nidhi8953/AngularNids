@@ -3,9 +3,14 @@
 
 ===========================================================
 
-
-
-
+HERE SCM CHECK IN 
+PLUGINS
+==============
+1) ALLURE
+2) NODEJS
+3) DOCKER (2)
+4) GIT
+5) PIpeline Script view
 
 ![image](https://github.com/user-attachments/assets/6510fd6d-d07e-4ef5-8fb9-fd3a35e285db)
 
