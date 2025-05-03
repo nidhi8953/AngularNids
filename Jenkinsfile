@@ -1,4 +1,7 @@
 node {
+
+    // Clean workspace
+    deleteDir()
     def app
    // Use the NodeJS installation configured in Jenkins Global Tools
     def nodeJS = tool name: 'NodeJS 23.x', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
@@ -50,17 +53,30 @@ node {
             '''
     }
     stage("Allure REport") {
-           // Process test results
+            // Verify results exist before processing
+            sh '''
+            echo "Checking for Allure results..."
+            ls -la allure-results/ || true
+            '''
+            
+            // Generate Allure report
             allure([
                 includeProperties: false,
                 jdk: '',
                 results: [[path: 'allure-results']],
-                reportBuildPolicy: 'ALWAYS',
-                properties: []
+                reportBuildPolicy: 'ALWAYS'
             ])
+            // Archive only if files exist
+            script {
+                def results = findFiles(glob: 'allure-results/**/*')
+                if (results) {
+                    archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: false
+                } else {
+                    echo "Warning: No Allure results found to archive"
+                }
+            }
+      
             
-            // Archive results for debugging
-            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true 
     }
     stage('Push image') {
         
