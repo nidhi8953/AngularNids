@@ -11,6 +11,8 @@ node {
     env.DISPLAY = ':99' // Needed for some X11-based systems
         
 
+        
+    
     stage('Clone repository') {
       
 
@@ -28,21 +30,25 @@ node {
        }
       
     }
-    stage('Install Chrome') {
+    stage('Setup') {
+            // Install Chrome and dependencies
             sh '''
-            # Install Chrome browser
-            curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-            echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-            apt-get -y update
-            apt-get -y install google-chrome-stable xvfb
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+            apt-get update -qq
+            apt-get install -y google-chrome-stable xvfb
             '''
     }
     stage('Run Unit Tests') {
           
-                //sh 'npm test -- --watch=false --code-coverage'
-                // Alternative if using ng directly:
-               //sh 'ng test --watch=false --code-coverage'
-               sh 'npm test -- --watch=false --code-coverage'
+            sh '''
+            # Start virtual display
+            Xvfb :99 -screen 0 1280x1024x24 &
+            export DISPLAY=:99
+            
+            # Run tests with required Chrome flags
+            npm test -- --watch=false --browsers=ChromeHeadless --no-sandbox
+            '''
           
             
     }
