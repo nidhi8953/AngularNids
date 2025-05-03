@@ -50,8 +50,17 @@ node {
             '''
     }
     stage("Allure REport") {
-        echo "Allur REport !!"
-        allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]   
+           // Process test results
+            allure([
+                includeProperties: false,
+                jdk: '',
+                results: [[path: 'allure-results']],
+                reportBuildPolicy: 'ALWAYS',
+                properties: []
+            ])
+            
+            // Archive results for debugging
+            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true 
     }
     stage('Push image') {
         
