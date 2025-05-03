@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+    tools {
+        nodejs 'NodeJS 23.11.0' // Matches the name you configured
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'node --version'
+                sh 'npm install'
+            }
+        }
+    }
+}
