@@ -6,6 +6,11 @@ node {
     // Add NodeJS to PATH
     env.PATH = "${nodeJS}/bin:${env.PATH}"
 
+    // Set environment variables
+    env.CHROME_BIN = '/usr/bin/google-chrome'
+    env.DISPLAY = ':99' // Needed for some X11-based systems
+        
+
     stage('Clone repository') {
       
 
@@ -22,6 +27,15 @@ node {
             sh 'echo "Tests passed"'
        }
       
+    }
+    stage('Install Chrome') {
+            sh '''
+            # Install Chrome browser
+            curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+            apt-get -y update
+            apt-get -y install google-chrome-stable xvfb
+            '''
     }
     stage('Run Unit Tests') {
           
