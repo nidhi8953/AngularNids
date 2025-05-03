@@ -1,14 +1,16 @@
-pipeline {
-    agent any
-    tools {
-        nodejs 'NodeJS 23.11.0' // Matches the name you configured
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'node --version'
-                sh 'npm install'
-            }
-        }
+node {
+    // Use the NodeJS installation configured in Jenkins Global Tools
+    def nodeJS = tool name: 'node-build 23.11.0', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+    
+    // Add NodeJS to PATH
+    env.PATH = "${node-build}/bin:${env.PATH}"
+    
+    stage('Build') {
+        sh 'node --version'
+        sh 'npm --version'
+        
+        // Run npm commands
+        sh 'npm install'
+        sh 'npm run build'
     }
 }
