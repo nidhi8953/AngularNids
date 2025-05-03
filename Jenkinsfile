@@ -49,7 +49,7 @@ node {
             export DISPLAY=:99
             
             # Run tests with correct Chrome flags
-            npm test -- --watch=false --browsers=ChromeHeadlessNoSandbox
+            ng test -- --watch=false --browsers=ChromeHeadlessNoSandbox
             '''
     }
     stage("Allure REport") {
